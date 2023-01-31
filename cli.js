@@ -54,7 +54,7 @@ const response = await fetch(url);
 // Get the data from the request
 const data = await response.json();
 
-if ("j" in argv) {
+if (args.j) {
     console.log(data);
     process.exit(0);
 }
