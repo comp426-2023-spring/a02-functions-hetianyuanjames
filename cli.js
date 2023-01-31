@@ -61,19 +61,16 @@ const days = args.d
 
 let string;
 
-// if(data.daily.precipitation_hours[days] > 0) {
-//     string = "It's raining ";
-// }
-// else {
-//     string = "It should be sunny ";
-// }
+if(data.daily.precipitation_hours[days] > 0) {
+    string = "It will rain ";
+}
 
 if (days == 0) {
-     "It will rain today.";
+    string += "today.";
 } else if (days > 1) {
-    "It will rain in " + days + " days.";
+    string += "in " + days + " days.";
 } else {
-    "It will rain tomorrow.";
+    string += "tomorrow.";
 }
 
 // if -j, print json data object
