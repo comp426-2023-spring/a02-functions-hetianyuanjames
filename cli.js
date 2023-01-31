@@ -46,44 +46,44 @@ if (args.e) {
 }
 
 // make url
-var url = "https://api.open-meteo.com/v1/forecast?latitude=" + latitude + "&longitude=" + longitude + "&daily=precipitation_hours&timezone=" + timezone
+const url = "https://api.open-meteo.com/v1/forecast?latitude=" + latitude + "&longitude=" + longitude + "&timezone=" + timezone + "&daily=precipitation_hours";
 
-// Make a request
+// data response from fetch
+
 const response = await fetch(url);
 
-// Get the data from the request
 const data = await response.json();
 
-//return Json data
-if (args.j) {
+// see which days the user wants to see data for (default is tomorrow)
+
+const days = args.d
+
+// parse string message from data (if it's raining or sunny)
+
+let string;
+
+if(data.daily.precipitation_hours[days] > 0) {
+    string = "Don't forget your umbrella, cuz it's raining ";
+}
+else {
+    string = "It should be sunny ";
+}
+
+if (days == 0) {
+    string += "today.";
+} else if (days > 1) {
+    string += "in " + days + " days.";
+} else {
+    string += "tomorrow.";
+}
+
+// if -j, print json data object
+// else, print the parsed string
+
+if(args.j) {
     console.log(data);
-    process.exit(0);
-  }
-  
-  const days = args.d;
-  
-  if (days == 0) {
-    console.log(
-      "It will rain for " +
-        data["daily"]["precipitation_hours"][0] +
-        "hours today."
-    );
-  } else if (days > 1) {
-    console.log(
-      "It will rain for " +
-        data["daily"]["precipitation_hours"][days] +
-        "hours in " +
-        days +
-        " days."
-    );
-  } else {
-    console.log(
-      "It will rain for " +
-        data["daily"]["precipitation_hours"][1] +
-        "hours tomorrow."
-    );
-  }
-
-
-
-  
+    process.exit(0)
+}
+else {
+    console.log(string);
+}
