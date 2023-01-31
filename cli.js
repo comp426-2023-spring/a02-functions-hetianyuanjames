@@ -46,7 +46,13 @@ if (args.e) {
 }
 
 // make url
-const url = "https://api.open-meteo.com/v1/forecast?latitude=" + latitude + "&longitude=" + longitude + "&daily=precipitation_hours" + timezone;
+const url =
+  "https://api.open-meteo.com/v1/forecast?latitude=" +
+  latitude +
+  "&longitude=" +
+  longitude +
+  "&daily=precipitation_hours&current_weather=true&timezone=" +
+  timezone;
 
 // Make a request
 const response = await fetch(url);
