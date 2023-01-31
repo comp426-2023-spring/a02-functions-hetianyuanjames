@@ -54,27 +54,5 @@ const response = await fetch(url);
 // Get the data from the request
 const data = await response.json();
 
-if (args.j) {
-    console.log(data);
-    process.exit(0);
-}
 
-var weather = ""
-
-if (data.daily.precipitation_hours[day] > 0) {
-    weather += "You will need your galoshes "
-} else {
-    weather += "You will not need your galoshes "
-}
-
-if (day == 0) {
-    weather += "today."
-} else if (day > 1) {
-    weather += "in " + day + " days."
-} else {
-    weather += "tomorrow."
-}
-
-console.log(weather)
-process.exit(0);
   
