@@ -46,13 +46,7 @@ if (args.e) {
 }
 
 // make url
-const url =
-  "https://api.open-meteo.com/v1/forecast?latitude=" +
-  latitude +
-  "&longitude=" +
-  longitude +
-  "&daily=precipitation_hours&current_weather=true&timezone=" +
-  timezone;
+var url = "https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + long + "&daily=precipitation_hours&timezone=" + timezone
 
 // Make a request
 const response = await fetch(url);
@@ -61,34 +55,58 @@ const response = await fetch(url);
 const data = await response.json();
 
 //return Json data
+// if (args.j) {
+//     console.log(data);
+//     process.exit(0);
+//   }
+  
+//   const days = args.d;
+  
+//   if (days == 0) {
+//     console.log(
+//       "It will rain for " +
+//         data["daily"]["precipitation_hours"][0] +
+//         "hours today."
+//     );
+//   } else if (days > 1) {
+//     console.log(
+//       "It will rain for " +
+//         data["daily"]["precipitation_hours"][days] +
+//         "hours in " +
+//         days +
+//         " days."
+//     );
+//   } else {
+//     console.log(
+//       "It will rain for " +
+//         data["daily"]["precipitation_hours"][1] +
+//         "hours tomorrow."
+//     );
+//   }
+
 if (args.j) {
     console.log(data);
     process.exit(0);
-  }
-  
-  const days = args.d;
-  
-  if (days == 0) {
-    console.log(
-      "It will rain for " +
-        data["daily"]["precipitation_hours"][0] +
-        "hours today."
-    );
-  } else if (days > 1) {
-    console.log(
-      "It will rain for " +
-        data["daily"]["precipitation_hours"][days] +
-        "hours in " +
-        days +
-        " days."
-    );
-  } else {
-    console.log(
-      "It will rain for " +
-        data["daily"]["precipitation_hours"][1] +
-        "hours tomorrow."
-    );
-  }
+}
+
+var weather = ""
+
+if (data.daily.precipitation_hours[day] > 0) {
+    weather += "You will need your galoshes "
+} else {
+    weather += "You will not need your galoshes "
+}
+
+if (day == 0) {
+    weather += "today."
+} else if (day > 1) {
+    weather += "in " + day + " days."
+} else {
+    weather += "tomorrow."
+}
+
+console.log(weather)
+process.exit(0);
 
 
 
