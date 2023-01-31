@@ -48,13 +48,12 @@ if (args.e) {
 // make url
 const url = "https://api.open-meteo.com/v1/forecast?latitude=" + latitude + "&longitude=" + longitude + "&timezone=" + timezone + "&daily=precipitation_hours";
 
-// data response from fetch
-
+// Make a request
 const response = await fetch(url);
 
+// Get the data from the request
 const data = await response.json();
 
-// see which days the user wants to see data for (default is tomorrow)
 
 const days = args.d
 
@@ -63,11 +62,11 @@ const days = args.d
 let string;
 
 if(data.daily.precipitation_hours[days] > 0) {
-    string = "Don't forget your umbrella, cuz it's raining ";
+    string = "It's raining ";
 }
-else {
-    string = "It should be sunny ";
-}
+// else {
+//     string = "It should be sunny ";
+// }
 
 if (days == 0) {
     string += "today.";
