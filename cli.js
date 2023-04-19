@@ -1,4 +1,4 @@
-#!/usr/bin/env node // Following should be the first line of the script file
+#!/usr/bin/env node
 
 // Good practice to include all needed imports or dependencies at the top of the file.
 // import moment from moment-timezone (will need for later)
@@ -7,6 +7,8 @@ import fetch from "node-fetch";
 import moment from "moment-timezone";
 
 // const timezone = moment.tz.guess(); Will probably need for later.
+// Timezone (reference repo documentation)
+const timezone = moment.tz.guess();
 
 // Create the help text (create if statement (if '-h' option or argument is fed in, output or log the following help text & exit 0))
 // 0: exit code for "everything worked" ; 1: "there was an error"
@@ -24,12 +26,10 @@ if (arg2.h){
   process.exit(0);
 }
 
-// Timezone (reference repo documentation)
-const timezone = moment.tz.guess();
 
 // Find the appropriate request URL
 // What variables do I need to construct my URL string? -> Main variables: latitude, longitude, daily, precipitation days & hours
-const days = arg2.d; //"-d" from help text above
+
 
 // Create a latitude & longitude variable (set the following); '||' means or
 // latitude
@@ -60,6 +60,8 @@ if (arg2.e) {
 // Debugging: Don't forget to concatenate '&daily=precipitation_hours&timezone=' to the URL
 const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=' + latitude +'&longitude='+ longitude +'&daily=precipitation_hours&timezone='+ timezone); // What http link do I put here? | replace static values with argv values
 const data = await response.json();
+
+const days = arg2.d; //"-d" from help text above
 
 // Make if-else statement to pass assessment #6 (daily precipitation hours)
 // Intialize an empty string that will be added to (online documentation says to use 'let' to declare a String variable)
