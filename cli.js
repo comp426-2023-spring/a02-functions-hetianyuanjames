@@ -33,8 +33,28 @@ const timezone = moment.tz.guess();
 
 
 // Create a latitude & longitude variable (set the following); '||' means or
-var latitude =  arg2.n || arg2.s * -1; // Can these be constants and should I include '()'?
-var longitude = arg2.e || arg2.w * -1; 
+let latitude;
+let longitude;
+
+// latitude
+if (arg2.n) {
+  latitude = arg2.n;
+} else if (arg2.s) {
+  latitude = -arg2.s;
+} else {
+  console.log("Latitude must be in range");
+  process.exit(0);
+}
+
+// longitude
+if (arg2.e) {
+  longitude = arg2.e;
+} else if (arg2.w) {
+  longitude = -arg2.w;
+} else {
+  console.log("longitude must be in range");
+  process.exit(0);
+}
 
 // Utilize fetch & response to make a request here (think about relevant variable names and watch out for spacing here)
 // Debugging: Don't forget to concatenate '&daily=precipitation_hours&timezone=' to the URL
