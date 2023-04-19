@@ -7,61 +7,39 @@ import fetch from "node-fetch";
 import moment from "moment-timezone";
 
 // const timezone = moment.tz.guess(); Will probably need for later.
-// Timezone (reference repo documentation)
-const timezone = moment.tz.guess();
 
 // Create the help text (create if statement (if '-h' option or argument is fed in, output or log the following help text & exit 0))
 // 0: exit code for "everything worked" ; 1: "there was an error"
 const arg2 = minimist(process.argv.slice(2)) // Same structure in previous assignment
+if (arg2.h) { // Use '.' and not '= or =='
+    // Reference documentation on repository (log the following help text)
+    console.log(`Usage: galosh.js [options] -[n|s] LATITUDE -[e|w] LONGITUDE -z TIME_ZONE
+    -h            Show this help message and exit.
+    -n, -s        Latitude: N positive; S negative.
+    -e, -w        Longitude: E positive; W negative.
+    -z            Time zone: uses tz.guess() from moment-timezone by default.
+    -d 0-6        Day to retrieve weather: 0 is today; defaults to 1.
+    -j            Echo pretty JSON from open-meteo API and exit.`);
 
-if (arg2.h){
-  console.log(`Usage: galosh.js [options] -[n|s] LATITUDE -[e|w] LONGITUDE -z TIME_ZONE
-      -h            Show this help message and exit.
-      -n, -s        Latitude: N positive; S negative.
-      -e, -w        Longitude: E positive; W negative.
-      -z            Time zone: uses tz.guess() from moment-timezone by default.
-      -d 0-6        Day to retrieve weather: 0 is today; defaults to 1.
-      -j            Echo pretty JSON from open-meteo API and exit.
-  `);
-  process.exit(0);
+    // Don't forget to "exit 0"
+    process.exit(0);
 }
 
+// Timezone (reference repo documentation)
+const timezone = moment.tz.guess();
 
 // Find the appropriate request URL
 // What variables do I need to construct my URL string? -> Main variables: latitude, longitude, daily, precipitation days & hours
-
+const days = arg2.d; //"-d" from help text above
 
 // Create a latitude & longitude variable (set the following); '||' means or
-// latitude
-
-let latitude;
-let longitude;
-
-if (arg2.n) {
-  latitude = arg2.n;
-} else if (arg2.s) {
-  latitude = -arg2.s;
-} else {
-  console.log("Latitude must be in range");
-  process.exit(0);
-}
-
-// longitude
-if (arg2.e) {
-  longitude = arg2.e;
-} else if (arg2.w) {
-  longitude = -arg2.w;
-} else {
-  console.log("longitude must be in range");
-  process.exit(0);
-}
+var latitude =  arg2.n || arg2.s * -1; // Can these be constants and should I include '()'?
+var longitude = arg2.e || arg2.w * -1; 
 
 // Utilize fetch & response to make a request here (think about relevant variable names and watch out for spacing here)
 // Debugging: Don't forget to concatenate '&daily=precipitation_hours&timezone=' to the URL
 const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=' + latitude +'&longitude='+ longitude +'&daily=precipitation_hours&timezone='+ timezone); // What http link do I put here? | replace static values with argv values
 const data = await response.json();
-
-const days = arg2.d; //"-d" from help text above
 
 // Make if-else statement to pass assessment #6 (daily precipitation hours)
 // Intialize an empty string that will be added to (online documentation says to use 'let' to declare a String variable)
@@ -92,5 +70,3 @@ if(arg2.j){
 } else {
     console.log(emptystring);
 }
-
-// process.exit(0);
