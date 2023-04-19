@@ -57,8 +57,6 @@ const data = await response.json();
 
 const days = args.d
 
-// parse string message from data (if it's raining or sunny)
-
 let string;
 
 if(data.daily.precipitation_hours[days] > 0) {
