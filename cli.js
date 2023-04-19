@@ -34,20 +34,24 @@ const days = arg2.d; //"-d" from help text above
 
 // Create a latitude & longitude variable (set the following); '||' means or
 // latitude
-if (args.n) {
-  latitude = args.n;
-} else if (args.s) {
-  latitude = -args.s;
+
+let latitude;
+let longitude;
+
+if (arg2.n) {
+  latitude = arg2.n;
+} else if (arg2.s) {
+  latitude = -arg2.s;
 } else {
   console.log("Latitude must be in range");
   process.exit(0);
 }
 
 // longitude
-if (args.e) {
-  longitude = args.e;
-} else if (args.w) {
-  longitude = -args.w;
+if (arg2.e) {
+  longitude = arg2.e;
+} else if (arg2.w) {
+  longitude = -arg2.w;
 } else {
   console.log("longitude must be in range");
   process.exit(0);
