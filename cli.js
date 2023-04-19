@@ -44,7 +44,7 @@ const data = await response.json();
 // Make if-else statement to pass assessment #6 (daily precipitation hours)
 // Intialize an empty string that will be added to (online documentation says to use 'let' to declare a String variable)
 let emptystring = ""; 
-if (data.daily.precipitation_hours[days] > 0) { // Debugging
+if (data["daily"]["precipitation_hours"][days] > 0) { // Debugging
     // Log the following (reference documentation)
     emptystring = emptystring + "You might need your galoshes ";
 } else { // If the var. is not zero, it has to be zero
