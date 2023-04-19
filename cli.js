@@ -11,18 +11,17 @@ import moment from "moment-timezone";
 // Create the help text (create if statement (if '-h' option or argument is fed in, output or log the following help text & exit 0))
 // 0: exit code for "everything worked" ; 1: "there was an error"
 const arg2 = minimist(process.argv.slice(2)) // Same structure in previous assignment
-if (arg2.h) { // Use '.' and not '= or =='
-    // Reference documentation on repository (log the following help text)
-    console.log(`Usage: galosh.js [options] -[n|s] LATITUDE -[e|w] LONGITUDE -z TIME_ZONE
-    -h            Show this help message and exit.
-    -n, -s        Latitude: N positive; S negative.
-    -e, -w        Longitude: E positive; W negative.
-    -z            Time zone: uses tz.guess() from moment-timezone by default.
-    -d 0-6        Day to retrieve weather: 0 is today; defaults to 1.
-    -j            Echo pretty JSON from open-meteo API and exit.`);
 
-    // Don't forget to "exit 0"
-    process.exit(0);
+if (arg2.h){
+  console.log(`Usage: galosh.js [options] -[n|s] LATITUDE -[e|w] LONGITUDE -z TIME_ZONE
+      -h            Show this help message and exit.
+      -n, -s        Latitude: N positive; S negative.
+      -e, -w        Longitude: E positive; W negative.
+      -z            Time zone: uses tz.guess() from moment-timezone by default.
+      -d 0-6        Day to retrieve weather: 0 is today; defaults to 1.
+      -j            Echo pretty JSON from open-meteo API and exit.
+  `);
+  process.exit(0);
 }
 
 // Timezone (reference repo documentation)
